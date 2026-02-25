@@ -28,25 +28,23 @@ The Helios Course Hub gives you a modern, open, and fully controlled companion s
 
 ## Quick Start
 
-The skeleton is a **complete, ready-to-run package** – Grav CMS, the Helios Course Hub plugin, and demo content are all included. It defaults to a **single-course setup** with the top-level folders in `user/pages/` pre-configured and ready to use.
+The skeleton is a **complete, ready-to-run package** – Grav CMS, the Helios Course Hub plugin, and demo content are all included. The home page is a **Courses** listing that shows all active courses – by default, just `cpt-363-1/`.
 
 1. **Download and install** the [Grav Helios Course Hub Skeleton](https://github.com/paulhibbitts/grav-skeleton-helios-course-hub/releases/latest) package
 2. **Enter your licenses** – enter your Helios and complimentary SVG Icons license keys (or import an existing license file), then install and activate the theme
-3. **Edit your pages** in `user/pages/` – start with `10.home/` and work through the pre-built single-course sections
+3. **Edit your pages** in `user/pages/cpt-363-1/` – start with `10.home/` and work through the pre-built course sections
 4. **Publish** – works on almost any Web Server, with PHP 7.3.6+, or run locally; no database required
-
-For a multi-course setup, see the [Multi-Course Setup](#multi-course-setup) section below.
 
 ## Features
 
-- Ready-to-use course companion website with the clean Helios theme
+- Ready-to-use course companion website with the clean and modern Helios theme
 - Support for single or multiple courses from one site
 - Built-in shortcodes for embedding content (iFrames, Google Slides, PDFs, H5P, Embedly)
 - Responsive iframe/video containers with 16:9 aspect ratio
 - Embedly card support with automatic dark/light theme detection
 - Alphabetical topics index with auto-generated A–Z navigation
-- Git Sync plugin included for syncing site content with a GitHub or GitLab repository
-- Automatic "Edit this Page" link option provided by the Helios Theme
+- Git Sync plugin included for syncing site content with GitHub, Codeberg, or similar Git hosting service
+- Automatic "Edit this Page" link option provided by the Helios Theme, with support for both GitHub and Codeberg repositories
 - Customizable CSS and JavaScript via the bundled Helios Course Hub plugin
 - Admin panel styling customizations (increased font sizes and toolbar icon scaling)
 
@@ -54,58 +52,45 @@ If you prefer not to write Markdown directly, the optional [Grav Premium Editor 
 
 ## Git Sync & Open Editing
 
-The skeleton includes the [Git Sync plugin](https://github.com/trilbymedia/grav-plugin-git-sync), which keeps your site content automatically in sync with a GitHub or GitLab repository. This enables a full open-authoring workflow:
+The skeleton includes the [Git Sync plugin](https://github.com/trilbymedia/grav-plugin-git-sync), which keeps your site content automatically in sync with a GitHub or Codeberg repository. This enables a full open-authoring workflow:
 
 - Content editors can work directly in the Grav Admin or commit changes via Git
 - The Helios Theme's **"Edit this Page"** option adds a link on each page that takes readers directly to the corresponding source file in your repository for quick edits or contributions
 
-## Single Course Setup (Default)
+## Course Setup
 
-This skeleton is pre-configured for a single-course setup – no changes needed. Just start editing your pages:
-
-```
-user/pages/
-├── 10.home/
-├── 20.essentials/
-├── 30.modules/
-├── 40.schedule/
-├── 50.topics/
-├── 60.resources/
-├── 70.ux-techniques-guide/
-├── 80.syllabus/
-├── contact/
-└── copyright/
-```
-
-If switching back from a multi-course setup, make the following changes:
-1. Set the site home page to `10.home`
-2. For the page `00.home-multicourse` set **Published** to `false`
-3. Disable **Versioning** in Helios Theme settings
-
-## Multi-Course Setup
-
-To host multiple courses from one Grav installation, make the following changes:
-1. Set the site home page to `00.home-multicourse`
-2. For the page `00.home-multicourse` set **Published** to `true`
-3. Enable **Versioning** in Helios Theme settings
-4. Create versioned course directories (see folder naming below)
+All course content lives in course folders within `user/pages/`. The skeleton ships with three pre-configured course folders and a `00.courses/` homepage that lists all visible courses as cards.
 
 ```
 user/pages/
-├── cpt-363-1/          # Course 1
+├── 00.courses/                  # Courses homepage
+├── cpt-363-1/                   # Course 1 (published by default)
 │   ├── 10.home/
 │   ├── 20.essentials/
 │   ├── 30.modules/
-│   └── ...
-├── cpt-363-2/          # Course 2
-│   └── ...
-└── cpt-363-3/          # Course 3
-    └── ...
+│   ├── 40.schedule/
+│   ├── 50.topics/
+│   ├── 60.resources/
+│   ├── 70.ux-techniques-guide/
+│   └── 80.syllabus/
+├── cpt-363-2/                   # Course 2 (unpublished by default)
+├── cpt-363-3/                   # Course 3 (unpublished by default)
+├── contact/
+└── readme/
 ```
 
-## Multi-Course Folder Naming
+By default, only `cpt-363-1/` is published, so the Courses homepage shows a single course card – a clean starting point for a one-course site. To activate additional courses, set **Published** to **Yes** in each course folder's root page. The Course Dropdown appears automatically once more than one course is published, and hides automatically when only one course is active.
 
-Course version folders must start with one or more letters, followed by a number. An optional hyphen can separate the letters from the number. Additional version segments (separated by dots or hyphens) are supported.
+### Showing and Hiding Courses
+
+In the Admin panel, open the course folder's root page (e.g. `cpt-363-2`) and set **Published** to **Yes** to show or **No** to hide the course.
+
+> [!TIP]
+> When multiple courses are published, the Course Dropdown is useful while building and testing content, but students may find the Courses homepage is sufficient. Once content is finalised, you can hide this dropdown by setting **Show Version Dropdown** to **No** in the Helios Theme settings.
+
+## Course Folder Naming
+
+Course folders must start with one or more letters, followed by a number. An optional hyphen can separate the letters from the number. Additional version segments (separated by dots or hyphens) are supported.
 
 **Valid names:** `cpt-363-1`, `course-1`, `course-section-1`, `course-section-2`
 
@@ -113,9 +98,9 @@ Course version folders must start with one or more letters, followed by a number
 
 The simplest convention is `course-1`, `course-2`, `course-3`, etc.
 
-## Course List Page
+## Courses Homepage
 
-Multi-course setups include a **Course List** page template (`courselist`) that automatically generates course cards from detected version folders. Each card displays:
+The **Courses** homepage uses the `course-list` template to automatically generate course cards from detected course folders. Each card displays:
 
 - **Title** from the versioning labels in Helios theme settings
 - **Icon** from the course root folder frontmatter (`icon` field)
@@ -157,7 +142,7 @@ Custom CSS, JavaScript and shortcodes for the Helios Course Hub theme, plus Admi
 
 ### Theme Detection
 
-If the Helios theme is not installed, the plugin automatically falls back to the Quark theme, redirects visitors to the License Manager page, and displays a warning banner prompting you to enter your Helios License key and install Helios.
+If the Helios theme is not installed, the plugin automatically falls back to the Quark theme so the frontend site remains viewable. In the Admin panel, it redirects to the License Manager page and displays a warning banner prompting you to enter your Helios and SVG-Icons license key and install Helios.
 
 ### Course Label Customization
 
